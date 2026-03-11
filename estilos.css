@@ -6,6 +6,7 @@ p{
 }
 body{
     background-color: lightgray;
+    align-items: center;
 }
 h2{
     color: green;

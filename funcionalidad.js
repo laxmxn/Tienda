@@ -1,1 +1,3 @@
-alert("Hola mundo");
+function alerta(){
+    alert("¡Hola! Has hecho clic en el botón.");
+}

@@ -32,5 +32,15 @@
         <h1>Bienvenido a la librería</h1>
         <p>En esta librería encontrarás una amplia variedad de libros para todos los gustos.</p>
     </div>
+
+    <div class="container p-5 my-5 bg-dark text-white rounded">
+        <h2>¿Qué ofrecemos?</h2>
+        <ul>
+            <li>Libros de ficción y no ficción</li>
+            <li>Libros para niños y adultos</li>
+            <li>Libros electrónicos y audiolibros</li>
+            <li>Descuentos especiales para miembros</li>
+        </ul>
+    </div>
 </body>
 </html>

@@ -1,12 +1,11 @@
 version: '3.8'
 
 services:
-  # --- Tu Servidor Web (Nginx) ---
   web:
     container_name: web_container
     image: nginx:latest
     ports:
-      - "80:80"  # PHP normal en localhost:80
+      - "80:80" 
     volumes:
       - ./src:/usr/share/nginx/html
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
@@ -15,23 +14,20 @@ services:
       - mysql
     networks:
       - lamp-network
-
-  # --- Tu Motor de PHP (Separate Container) ---
   php:
     container_name: php_container
-    image: php:8.2-fpm # Una imagen FPM es mejor para usar con Nginx
+    image: php:8.2-fpm 
     volumes:
-      - ./src:/usr/share/nginx/html # Importante: PHP necesita ver los archivos
+      - ./src:/usr/share/nginx/html
     networks:
       - lamp-network
 
-  # --- Tu Base de Datos (MySQL) ---
   mysql:
     container_name: mysql_container
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: Luis28052005 # ¡CAMBIA ESTO!
+      MYSQL_ROOT_PASSWORD: Luis28052005 
       MYSQL_DATABASE: mi_base_datos
     ports:
       - "3306:3306"
@@ -40,24 +36,21 @@ services:
     networks:
       - lamp-network
 
-  # --- phpMyAdmin (El que tenías separado) ---
   phpmyadmin:
     container_name: phpmyadmin_container
     image: phpmyadmin:latest
     restart: always
     ports:
-      - "81:80" # phpMyAdmin en localhost:81
+      - "81:80"
     environment:
-      PMA_HOST: mysql  # Se conecta al servicio "mysql" por nombre
+      PMA_HOST: mysql  
       PMA_PORT: 3306
       PMA_USER: root
-      PMA_PASSWORD: Luis28052005 # ¡Debe coincidir con la de arriba!
+      PMA_PASSWORD: Luis28052005
     depends_on:
       - mysql
     networks:
       - lamp-network
-
-# Definiciones de Red y Volúmenes (al final del archivo)
 networks:
   lamp-network:
     driver: bridge

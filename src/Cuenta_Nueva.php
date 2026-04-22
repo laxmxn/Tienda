@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Practica 10</title>
+    <title>Creacion de cuenta</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <div class="container-fluid">
     <p class="navbar-brand">Libreria</p>
@@ -34,28 +33,12 @@
           <a class="nav-link" href="Informacion.php">Información</a>
         </li>
       </ul>
-            <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="Cuenta_Nueva.php">Iniciar sesión</a>
-        </li>
-      </ul>
     </div>
   </div>
 </nav>
-
     <div class="container p-5 my-5 bg-dark text-white rounded">
-        <h1>Bienvenido a la librería</h1>
-        <p>En esta librería encontrarás una amplia variedad de libros para todos los gustos.</p>
-    </div>
-
-    <div class="container p-5 my-5 bg-dark text-white rounded">
-        <h2>¿Qué ofrecemos?</h2>
-        <ul>
-            <li>Libros de ficción y no ficción</li>
-            <li>Libros para niños y adultos</li>
-            <li>Libros electrónicos y audiolibros</li>
-            <li>Descuentos especiales para miembros</li>
-        </ul>
+        <h1>Creación de cuenta</h1>
+        <p>En esta sección puedes crear una nueva cuenta para acceder a nuestra librería o ingresar a una ya existente.</p>
     </div>
 </body>
 </html>

@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Practica 10</title>
+    <title>Informacion de contacto</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <div class="container-fluid">
     <p class="navbar-brand">Libreria</p>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
@@ -44,18 +43,8 @@
 </nav>
 
     <div class="container p-5 my-5 bg-dark text-white rounded">
-        <h1>Bienvenido a la librería</h1>
-        <p>En esta librería encontrarás una amplia variedad de libros para todos los gustos.</p>
-    </div>
-
-    <div class="container p-5 my-5 bg-dark text-white rounded">
-        <h2>¿Qué ofrecemos?</h2>
-        <ul>
-            <li>Libros de ficción y no ficción</li>
-            <li>Libros para niños y adultos</li>
-            <li>Libros electrónicos y audiolibros</li>
-            <li>Descuentos especiales para miembros</li>
-        </ul>
+        <h1>Información de contacto</h1>
+        <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.</p>
     </div>
 </body>
 </html>

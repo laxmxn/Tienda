@@ -1,30 +1,13 @@
 <?php
-    $conexion = new mysqli('mysql', 'root', 'Luis28052005', 'Libreria');
+
+  session_start();
+    $conexion = new mysqli('mysql', 'root', 'Luis28052005', 'Tienda');
     if ($conexion->connect_error) {
         die("Conexión fallida: " . $conexion->connect_error);
     }
 
-    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-    $id = $_GET['id'];
-    $stmt = $conexion->prepare("SELECT portada, tipo_portada FROM biblioteca WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $resultado = $stmt->get_result();
-
-    if ($fila = $resultado->fetch_assoc()) {
-        header("Content-Type: " . $fila['tipo_portada']);
-        echo $fila['portada'];
-    }
-    $stmt->close();
-    $conexion->close();
-    exit; 
-
-    $query = "SELECT id, autor, titulo, fecha_publicacion FROM biblioteca ORDER BY id DESC";
-    $resultado = $conexion->query($query);
-}
-
-$imagenes = $conexion->query("SELECT id, autor, titulo, fecha_publicacion FROM biblioteca ORDER BY id DESC");
-
+    $query = "SELECT id_producto, nombre, descripcion, precio, foto FROM Productos ORDER BY id_producto DESC";
+    $productos = $conexion->query($query);
 ?>
 
 <!DOCTYPE html>
@@ -62,38 +45,69 @@ $imagenes = $conexion->query("SELECT id, autor, titulo, fecha_publicacion FROM b
           <a class="nav-link" href="Informacion.php">Información</a>
         </li>
       </ul>
-            <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="Cuenta_Nueva.php">Iniciar sesión</a>
-        </li>
-      </ul>
+      <?php if (isset($_SESSION['id_usuario'])): ?>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="Cerrar_Sesion.php">Cerrar sesión</a>
+          </li>
+        </ul>
+      <?php else: ?>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="Cuenta_Nueva.php">Iniciar sesión</a>
+          </li>
+        </ul>
+      <?php endif; ?>
+      
     </div>
   </div>
 </nav>
+
 <div class="container p-5 my-5 bg-dark text-white rounded">
-    <h1>Consulta de libros</h1>
-    <p>En esta sección puedes consultar los libros registrados en nuestra librería.</p>
+    <h1>Consulta de productos</h1>
+    <p>En esta sección puedes consultar los productos registrados en nuestra tienda.</p>
 </div>
 
 <div class="container">
-    <h2 class="text-center mb-4">Catálogo de Libros</h2>
+    <h2 class="text-center mb-4">Catálogo de Productos</h2>
 
     <div class="row">
-        <?php while ($fila = $imagenes->fetch_assoc()): ?>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <img src="Consulta.php?id=<?php echo $fila['id']; ?>" class="card-img-top" alt="<?php echo $fila['titulo']; ?>">
-                    <div class="card-body">
-                        <h5 class="card-title"><?php echo $fila['titulo']; ?></h5>
-                        <p class="card-text">Autor: <?php echo $fila['autor']; ?></p>
-                        <p class="card-text">Fecha de Publicación: <?php echo $fila['fecha_publicacion']; ?></p>
-                    </div>
-                </div>
-            </div>
-        <?php endwhile; ?>
-    </div>
+            <?php
+                    $conexion = new mysqli('mysql', 'root', 'Luis28052005', 'Tienda');
+                    if ($conexion->connect_error) {
+                        die("Conexión fallida: " . $conexion->connect_error);
+                    }
+
+                    $query = "SELECT id_producto, nombre, descripcion, precio, foto FROM Productos ORDER BY id_producto DESC";
+                    $productos = $conexion->query($query);
+
+                    if($productos->num_rows > 0){
+                        while ($fila = $productos->fetch_assoc()) {
+                            echo "<div class='col-md-4 mb-4'>";
+                            echo "<div class='card h-100'>";
+                            if (!empty($fila['foto'])) {
+                                $finfo = new finfo(FILEINFO_MIME_TYPE);
+                                $tipoMime = $finfo->buffer($fila['foto']); 
+                                $imagenBase64 = base64_encode($fila['foto']);
+                                $src = 'data:' . $tipoMime . ';base64,' . $imagenBase64;
+                            } else {
+                                $src = 'https://via.placeholder.com/300x200?text=Sin+Imagen';
+                            }
+                            echo "<img src='$src' class='card-img-top' alt='{$fila['nombre']}'>";
+                            echo "<div class='card-body'>";
+                            echo "<h5 class='card-title'>{$fila['nombre']}</h5>";
+                            echo "<p class='card-text'>{$fila['descripcion']}</p>";
+                            echo "<p class='card-text'>Precio: {$fila['precio']} MXN</p>";
+                            echo "<a href='Agregar_Al_Carrito.php?id={$fila['id_producto']}' class='btn btn-primary'>Agregar al carrito</a>";
+                            echo "</div></div></div>";
+                        }
+                    } else {
+                        echo "<div class='col-12'><p class='text-center'>No hay productos registrados.</p></div>";
+                    }
+                    $conexion->close();
+                ?>
+  </div>
 </div>
 
-<?php $conexion->close(); ?>
 </body>
 </html>

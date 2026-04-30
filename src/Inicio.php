@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -34,27 +38,40 @@
           <a class="nav-link" href="Informacion.php">Información</a>
         </li>
       </ul>
-            <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="Cuenta_Nueva.php">Iniciar sesión</a>
-        </li>
-      </ul>
+      <?php if (isset($_SESSION['id_usuario'])): ?>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="Cerrar_Sesion.php">Cerrar sesión</a>
+          </li>
+        </ul>
+      <?php else: ?>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="Cuenta_Nueva.php">Iniciar sesión</a>
+          </li>
+        </ul>
+      <?php endif; ?>
+      
     </div>
   </div>
 </nav>
 
     <div class="container p-5 my-5 bg-dark text-white rounded">
-        <h1>Bienvenido a la librería</h1>
-        <p>En esta librería encontrarás una amplia variedad de libros para todos los gustos.</p>
+        <h1>Bienvenido a la Tienda en línea</h1>
+        <?php if (isset($_SESSION['id_usuario'])): ?>
+            <p class="lead">¡Qué bueno verte, <?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?>!</p>
+        <?php endif; ?>
+        <p>En esta tienda encontrarás una amplia variedad de productos para todos los gustos.</p>
     </div>
 
     <div class="container p-5 my-5 bg-dark text-white rounded">
         <h2>¿Qué ofrecemos?</h2>
+        <p>Ofrecemos una amplia gama de productos, incluyendo:</p>
         <ul>
-            <li>Libros de ficción y no ficción</li>
-            <li>Libros para niños y adultos</li>
-            <li>Libros electrónicos y audiolibros</li>
-            <li>Descuentos especiales para miembros</li>
+            <li>Computadoras y laptops</li>
+            <li>Teléfonos inteligentes</li>
+            <li>Tabletas</li>
+            <li>Dispositivos electrónicos</li>
         </ul>
     </div>
 </body>

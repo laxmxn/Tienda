@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,7 +12,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <div class="container-fluid">
     <p class="navbar-brand">Libreria</p>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
@@ -33,14 +36,24 @@
           <a class="nav-link" href="Informacion.php">Información</a>
         </li>
       </ul>
-            <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="Cuenta_Nueva.php">Iniciar sesión</a>
-        </li>
-      </ul>
+      <?php if (isset($_SESSION['id_usuario'])): ?>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="Cerrar_Sesion.php">Cerrar sesión</a>
+          </li>
+        </ul>
+      <?php else: ?>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="Cuenta_Nueva.php">Iniciar sesión</a>
+          </li>
+        </ul>
+      <?php endif; ?>
+      
     </div>
   </div>
 </nav>
+
 
     <div class="container p-5 my-5 bg-dark text-white rounded">
         <h1>Información de contacto</h1>

@@ -24,9 +24,6 @@
           <a class="nav-link" href="Inicio.php">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="Registro.php">Registro</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="Consulta.php">Consulta</a>
         </li>
         <li class="nav-item">

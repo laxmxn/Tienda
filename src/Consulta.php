@@ -6,7 +6,7 @@
         die("Conexión fallida: " . $conexion->connect_error);
     }
 
-    $query = "SELECT id_producto, nombre, descripcion, precio, foto FROM Productos ORDER BY id_producto DESC";
+    $query = "SELECT id_producto, nombre, descripcion, precio, foto, stock FROM Productos ORDER BY id_producto DESC";
     $productos = $conexion->query($query);
 ?>
 
@@ -31,9 +31,6 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" href="Inicio.php">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="Registro.php">Registro</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="Consulta.php">Consulta</a>
@@ -66,6 +63,12 @@
 <div class="container p-5 my-5 bg-dark text-white rounded">
     <h1>Consulta de productos</h1>
     <p>En esta sección puedes consultar los productos registrados en nuestra tienda.</p>
+    <?php
+        if (isset($_SESSION['mensaje'])) {
+            echo "<div class='alert alert-info mb-4'>{$_SESSION['mensaje']}</div>";
+            unset($_SESSION['mensaje']);
+        }
+    ?>
 </div>
 
 <div class="container">
@@ -78,7 +81,7 @@
                         die("Conexión fallida: " . $conexion->connect_error);
                     }
 
-                    $query = "SELECT id_producto, nombre, descripcion, precio, foto FROM Productos ORDER BY id_producto DESC";
+                    $query = "SELECT id_producto, nombre, descripcion, precio, foto, stock FROM Productos ORDER BY id_producto DESC";
                     $productos = $conexion->query($query);
 
                     if($productos->num_rows > 0){
@@ -93,13 +96,31 @@
                             } else {
                                 $src = 'https://via.placeholder.com/300x200?text=Sin+Imagen';
                             }
-                            echo "<img src='$src' class='card-img-top' alt='{$fila['nombre']}'>";
-                            echo "<div class='card-body'>";
-                            echo "<h5 class='card-title'>{$fila['nombre']}</h5>";
-                            echo "<p class='card-text'>{$fila['descripcion']}</p>";
-                            echo "<p class='card-text'>Precio: {$fila['precio']} MXN</p>";
-                            echo "<a href='Agregar_Al_Carrito.php?id={$fila['id_producto']}' class='btn btn-primary'>Agregar al carrito</a>";
-                            echo "</div></div></div>";
+                              echo "<img src='$src' class='card-img-top' alt='{$fila['nombre']}'>";
+
+                              echo "<div class='card-body'>";
+                              echo "<h5 class='card-title'>{$fila['nombre']}</h5>";
+                              echo "<p class='card-text'>{$fila['descripcion']}</p>";
+                              echo "<p class='card-text'>Precio: {$fila['precio']} MXN</p>";
+                              echo "<p class='card-text'>stock: {$fila['stock']} unidades</p>";
+
+                              echo "<form method='POST' action='Agregar_Carrito.php' class='mt-3'>";
+                              $stockDisponible = $fila['stock'];
+                              if ($stockDisponible > 0) {
+
+                              echo "<div class='input-group'>";
+                              echo "<input type='number' name='cantidad' class='form-control' min='1' max='$stockDisponible' value='1' required>";
+                              echo "</div>";
+                              echo "<input type='submit' value='Agregar al carrito' class='btn btn-primary mt-2'>";
+                              echo "<input type='hidden' name='id_producto' value='{$fila['id_producto']}'>";
+                            }else {
+                              echo "<p class='text-danger mt-3'>Producto agotado</p>";
+                              echo "<button type='button' class='btn btn-secondary w-100' disabled>Sin stock</button>";
+                            }
+                            echo "</form>";
+                              echo "</div>";
+                              echo "</div>";
+                              echo "</div>";
                         }
                     } else {
                         echo "<div class='col-12'><p class='text-center'>No hay productos registrados.</p></div>";

@@ -178,21 +178,32 @@
                 }
 
                 if($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])){
-                    $id = $_GET['id'];
+                    $id = (int)$_GET['id'];
+                    
+                    $conexion->query("DELETE FROM Carrito WHERE id_producto = $id");
+                    $conexion->query("DELETE FROM Historial_Compras WHERE id_producto = $id");
+
                     $stmt = $conexion->prepare("DELETE FROM Productos WHERE id_producto = ?");
+                    
                     if(!$stmt) {
                         $mensaje = "Error al preparar: " . $conexion->error;
-                    } else {
+                    }else{
                         $stmt->bind_param("i", $id);
                         if ($stmt->execute()) {
-                            $mensaje = "Producto eliminado exitosamente.";
+                            echo "<script>window.location.href='Registro.php?mensaje=eliminado';</script>";
+                            exit();
                         } else {
                             $mensaje = "Error al ejecutar: " . $stmt->error;
+                            echo "<div class='container p-3 my-3 alert alert-danger'>$mensaje</div>";
                         }
                         $stmt->close();
                     }
-                    echo "<div class='p-3 my-3 alert alert-info'>$mensaje</div>";
                 }
+
+                if (isset($_GET['mensaje']) && $_GET['mensaje'] === 'eliminado') {
+                    echo "<div class='container p-3 my-3 alert alert-success'>Producto eliminado exitosamente.</div>";
+                }
+
                 $query = "SELECT id_producto, nombre, descripcion, precio, foto FROM Productos ORDER BY id_producto DESC";
                 $productos = $conexion->query($query);
             ?>

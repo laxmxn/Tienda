@@ -26,9 +26,6 @@ session_start();
           <a class="nav-link" href="Inicio.php">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="Registro.php">Registro</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="Consulta.php">Consulta</a>
         </li>
         <li class="nav-item">
@@ -62,6 +59,12 @@ session_start();
             <p class="lead">¡Qué bueno verte, <?php echo htmlspecialchars($_SESSION['nombre_usuario']); ?>!</p>
         <?php endif; ?>
         <p>En esta tienda encontrarás una amplia variedad de productos para todos los gustos.</p>
+        <?php
+        if (isset($_SESSION['mensaje'])) {
+            echo '<div class="alert alert-info mt-3">' . htmlspecialchars($_SESSION['mensaje']) . '</div>';
+            unset($_SESSION['mensaje']);
+        }
+        ?>
     </div>
 
     <div class="container p-5 my-5 bg-dark text-white rounded">

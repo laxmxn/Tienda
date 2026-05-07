@@ -101,7 +101,7 @@
                               echo "<div class='card-body'>";
                               echo "<h5 class='card-title'>{$fila['nombre']}</h5>";
                               echo "<p class='card-text'>{$fila['descripcion']}</p>";
-                              echo "<p class='card-text'>Precio: {$fila['precio']} MXN</p>";
+                              echo "<p class='card-text'>Precio: $" . number_format($fila['precio'], 2, '.', ',') . " MXN</p>";
                               echo "<p class='card-text'>stock: {$fila['stock']} unidades</p>";
 
                               echo "<form method='POST' action='Agregar_Carrito.php' class='mt-3'>";

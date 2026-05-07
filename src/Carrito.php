@@ -1,5 +1,11 @@
 <?php
   session_start();
+  if (isset($_SESSION['id_usuario'])) {
+    $id_usuario = $_SESSION['id_usuario'];
+  } else {
+    header("Location: Cuenta_Nueva.php");
+    exit();
+  }
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -34,20 +40,20 @@
           <a class="nav-link" href="Informacion.php">Información</a>
         </li>
       </ul>
+      <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="Historial.php">Historial de Compras</a>
+          </li>
       <?php if (isset($_SESSION['id_usuario'])): ?>
-        <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <a class="nav-link" href="Cerrar_Sesion.php">Cerrar sesión</a>
           </li>
-        </ul>
       <?php else: ?>
-        <ul class="navbar-nav ms-auto">
           <li class="nav-item">
             <a class="nav-link" href="Cuenta_Nueva.php">Iniciar sesión</a>
           </li>
-        </ul>
       <?php endif; ?>
-      
+      </ul>
     </div>
   </div>
 </nav>
@@ -97,7 +103,7 @@
         echo "<div class='card-body d-flex flex-column'>";
         echo "<h5 class='card-title'>$nombre</h5>";
         echo "<p class='card-text'>$descripcion</p>";
-        echo "<p class='card-text'><Strong>Precio: $$precio</Strong></p>";
+        echo "<p class='card-text'><Strong>Precio: $" . number_format($precio, 2, '.', ',') . "</Strong></p>";
         echo "<p class='card-text'>Cantidad:<Strong> $cantidad</Strong></p>";
 
         echo "<form method='POST' action='Eliminar_Carrito.php' class='mt-3'>";

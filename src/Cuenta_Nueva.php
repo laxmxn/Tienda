@@ -93,7 +93,6 @@
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link" href="Inicio.php">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Registro.php">Registro</a></li>
                     <li class="nav-item"><a class="nav-link" href="Consulta.php">Consulta</a></li>
                     <li class="nav-item"><a class="nav-link" href="Carrito.php">Carrito</a></li>
                     <li class="nav-item"><a class="nav-link" href="Informacion.php">Información</a></li>
@@ -174,6 +173,10 @@
             <button type="submit" class="btn btn-success w-100">Iniciar sesión</button>
         </form>
     </div>
+
+    <?php
+        $conexion->close();
+    ?>
 
 </body>
 </html>

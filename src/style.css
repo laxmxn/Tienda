@@ -1,28 +1,29 @@
 :root {
-  --bs-primary: #ff7eb3;
-  --bs-secondary: #ffb2d9;
-  --bs-dark: #4a2c3a;
-  --bs-light: #fff5f8;
-  --bs-body-bg: #fffafd;
-  --bs-body-color: #5c434e;
+  --bs-primary: #c2185b; 
+  --bs-secondary: #7b1fa2; 
+  --bs-dark: #231833; 
+  --bs-light: #f3e8ff; 
+  --bs-body-bg: #fdfcff;
+  --bs-body-color: #2b2136;
   
-  --bs-primary-rgb: 255, 126, 179;
-  --bs-secondary-rgb: 255, 178, 217;
-  --bs-dark-rgb: 74, 44, 58;
-  --bs-light-rgb: 255, 245, 248;
-  --bs-body-bg-rgb: 255, 250, 253;
-  --bs-body-color-rgb: 92, 67, 78;
+
+  --bs-primary-rgb: 194, 24, 91;
+  --bs-secondary-rgb: 123, 31, 162;
+  --bs-dark-rgb: 21, 15, 30;
+  --bs-light-rgb: 243, 232, 255;
+  --bs-body-bg-rgb: 253, 252, 255;
+  --bs-body-color-rgb: 43, 33, 54;
 }
 
 .btn-primary {
   --bs-btn-bg: var(--bs-primary);
   --bs-btn-border-color: var(--bs-primary);
-  --bs-btn-hover-bg: #e66a9f;
-  --bs-btn-hover-border-color: #e66a9f;
+  --bs-btn-hover-bg: #9c1349;
+  --bs-btn-hover-border-color: #9c1349;
   --bs-btn-color: #ffffff;
   --bs-btn-hover-color: #ffffff;
-  --bs-btn-active-bg: #cc5d8c;
-  --bs-btn-active-border-color: #cc5d8c;
+  --bs-btn-active-bg: #7a0f39;
+  --bs-btn-active-border-color: #7a0f39;
 }
 
 .btn-outline-primary {
@@ -38,7 +39,7 @@
 .navbar-dark, .bg-dark {
   --bs-bg-opacity: 1;
   background-color: var(--bs-dark) !important;
-  --bs-navbar-color: rgba(255, 245, 248, 0.7);
+  --bs-navbar-color: rgba(243, 232, 255, 0.7);
   --bs-navbar-hover-color: var(--bs-secondary);
   --bs-navbar-active-color: var(--bs-light);
   --bs-navbar-brand-color: var(--bs-light);
@@ -51,7 +52,7 @@ a {
 }
 
 a:hover {
-  color: #e66a9f;
+  color: #9c1349;
 }
 
 .form-control:focus {

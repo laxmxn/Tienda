@@ -13,6 +13,24 @@ session_start();
         die("Conexión fallida: " . $conexion->connect_error);
     }
 
+    $query_tarjeta = "SELECT tarjeta_bancaria FROM Usuarios WHERE id_usuario = $id_usuario";
+    $resultado_tarjeta = $conexion->query($query_tarjeta);
+
+    if ($resultado_tarjeta->num_rows > 0) {
+        $fila_usuario = $resultado_tarjeta->fetch_assoc();
+        if (empty($fila_usuario['tarjeta_bancaria'])) {
+            $_SESSION['mensaje'] = "Por favor, completa tu información de tarjeta bancaria antes de proceder al pago.";
+            header("Location: Editar_Perfil.php");
+            exit();
+        }else {
+            $tarjeta_bancaria = $fila_usuario['tarjeta_bancaria'];
+        }
+    } else {
+        $_SESSION['mensaje'] = "Usuario no encontrado. Por favor, inicia sesión nuevamente.";
+        header("Location: Cuenta_Nueva.php");
+        exit();
+    }
+
     $query = "SELECT p.nombre, p.precio, c.cantidad FROM Carrito c JOIN Productos p ON c.id_producto = p.id_producto WHERE c.id_usuario = $id_usuario";
     $resultado = $conexion->query($query);
 
@@ -83,8 +101,8 @@ session_start();
                             $total_compra += $subtotal; 
                             
                             echo "<tr>";
-                            echo "<td>" . htmlspecialchars($fila['nombre']) . "</td>";
-                            echo "<td>" . $fila['cantidad'] . "</td>";
+                            echo "<td class=\"text-primary\">" . htmlspecialchars($fila['nombre']) . "</td>";
+                            echo "<td class=\"text-info\">" . $fila['cantidad'] . "</td>";
                             echo "<td>$" . number_format($fila['precio'], 2) . "</td>";
                             echo "<td>$" . number_format($subtotal, 2) . "</td>";
                             echo "</tr>";
@@ -95,10 +113,17 @@ session_start();
             
             <div class="text-end mt-4">
                 <h3>Total a Pagar: <span class="text-success">$<?php echo number_format($total_compra, 2); ?></span></h3>
+                <h3 class="text-primary">Tu pago se procesará con la tarjeta registrada: <?php echo htmlspecialchars($tarjeta_bancaria); ?></h3>
 
-                <form action="Procesar_Pago.php" method="POST" class="mt-3">
-                    <a href="Carrito.php" class="btn btn-danger">Cancelar</a>
-                    <button type="submit" class="btn btn-success btn-lg">Confirmar y Pagar</button>
+                <form action="Procesar_Pago.php" method="POST" class="mt-4">
+                  <div class="row">
+                    <div class="col">
+                      <a href="Carrito.php" class="btn btn-secondary w-100 py-3">Cancelar</a>
+                    </div> 
+                    <div class="col">
+                      <button type="submit" class="btn btn-primary w-100 py-3">Confirmar y Pagar</button>
+                    </div>
+                  </div>
                 </form>
             </div>
             

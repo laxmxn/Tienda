@@ -36,6 +36,7 @@
       <?php if (isset($_SESSION['id_usuario'])): ?>
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
+            <a class="nav-link" href="Editar_Perfil.php">Editar perfil</a>
             <a class="nav-link" href="Cerrar_Sesion.php">Cerrar sesión</a>
           </li>
         </ul>
@@ -55,6 +56,12 @@
     <div class="container p-5 my-5 bg-dark text-white rounded">
         <h1>Información de contacto</h1>
         <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos.</p>
+        <ul>
+            <li><strong>Correo electrónico:</strong> correo@tienda.com</li>
+            <li><strong>Teléfono:</strong> +1 234 567 890</li>
+            <li><strong>Dirección:</strong> Calle Principal 123, Ciudad, País</li>
+        </ul>
+        <h2> Gracias por visitar nuestra tienda en línea. ¡Esperamos que encuentres lo que buscas!</h2>
     </div>
 </body>
 </html>

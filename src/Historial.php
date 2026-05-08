@@ -100,5 +100,9 @@ if(!isset($_SESSION['id_usuario'])) {
     <h3 class="mt-4">¡Gracias por comprar con nosotros!</h3>
     </div>
 
+    <?php
+        $conexion->close();
+    ?>
+
 </body>
 </html>

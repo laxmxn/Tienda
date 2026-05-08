@@ -46,6 +46,7 @@
           </li>
       <?php if (isset($_SESSION['id_usuario'])): ?>
           <li class="nav-item">
+            <a class="nav-link" href="Editar_Perfil.php">Editar perfil</a>
             <a class="nav-link" href="Cerrar_Sesion.php">Cerrar sesión</a>
           </li>
       <?php else: ?>

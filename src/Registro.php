@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+if($_SESSION['id_usuario'] != 1) {
+    $_SESSION['mensaje'] = "Acceso denegado. Solo el administrador puede acceder a esta sección.";
+    header("Location: Inicio.php");
+    exit();
+}
+
 $conexion = new mysqli('mysql', 'root', 'Luis28052005', 'Tienda');
 if ($conexion->connect_error) {
     die("Conexión fallida: " . $conexion->connect_error);
@@ -92,51 +98,16 @@ $conexion->close();
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  
+    
 
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <div class="container-fluid">
-            <p class="navbar-brand">Libreria</p>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="collapsibleNavbar">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="Inicio.php">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Registro.php">Registro</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Consulta.php">Consulta</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Carrito.php">Carrito</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Informacion.php">Información</a>
-                    </li>
-                </ul>
-                <?php if (isset($_SESSION['id_usuario'])): ?>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="Cerrar_Sesion.php">Cerrar sesión</a>
-                    </li>
-                </ul>
-                <?php else: ?>
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="Cuenta_Nueva.php">Iniciar sesión</a>
-                    </li>
-                </ul>
-                <?php endif; ?>
-            </div>
-        </div>
-    </nav>
 
     <div class="container p-5 my-5 bg-dark text-white rounded">
         <h1>Registro de productos</h1>
-        <p>En esta sección puedes registrar nuevos productos en nuestra tienda.</p>
+        <p>¡Que bueno verte de nuevo, <?php echo $_SESSION['nombre_usuario']; ?>!</p>
+        <p> ¿Que cambio deseas hacer hoy? </p>
+        <p> En esta sección puedes agregar nuevos productos a nuestra tienda o eliminar los que ya no deseas que estén disponibles para nuestros clientes. </p>
         <?php
         if (isset($_SESSION['mensaje'])) {
             echo "<div class='alert alert-info mb-4'>{$_SESSION['mensaje']}</div>";

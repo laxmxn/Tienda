@@ -83,10 +83,10 @@ if($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])){
     exit();
 }
 
-$query = "SELECT id_producto, nombre, descripcion, precio, foto FROM Productos ORDER BY id_producto DESC";
+$query = "SELECT id_producto, nombre, descripcion, precio, foto, stock FROM Productos ORDER BY id_producto DESC";
 $productos = $conexion->query($query);
 
-$conexion->close();
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -200,11 +200,17 @@ $conexion->close();
                         echo "<td class='text-center'>
                                 <a href='?id={$fila['id_producto']}' class='btn btn-danger' onclick='return confirm(\"¿Estás seguro de que deseas eliminar este producto?\");'>Eliminar</a>
                               </td>";
+                        echo "<td class='text-center'>
+                                    <p class='text-info fw-bold'>Stock: {$fila['stock']} unidades</p>
+                                    <a href='Editar_stack.php?id={$fila['id_producto']}' class='btn btn-primary' onclick='return confirm(\"¿Estás seguro de que deseas editar este producto?\");'>Editar</a>
+                                </td>";
                         echo "</tr>";
                     }
                 } else {
                     echo "<tr><td colspan='3' class='text-center'>No hay productos registrados.</td></tr>";
                 }
+
+                $conexion->close();
                 ?>
                 </tbody>
             </table>

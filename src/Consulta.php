@@ -97,7 +97,7 @@
                         die("Conexión fallida: " . $conexion->connect_error);
                     }
 
-                    $query = "SELECT id_producto, nombre, descripcion, precio, foto, stock FROM Productos ORDER BY id_producto DESC";
+                    $query = "SELECT id_producto, nombre, descripcion, precio, foto, stock, origen, fabricante FROM Productos ORDER BY id_producto DESC";
                     $productos = $conexion->query($query);
 
                     if($productos->num_rows > 0){
@@ -118,6 +118,8 @@
                               echo "<h5 class='card-title'>{$fila['nombre']}</h5>";
                               echo "<p class='card-text'>{$fila['descripcion']}</p>";
                               echo "<p class='card-text'>Precio: $" . number_format($fila['precio'], 2, '.', ',') . " MXN</p>";
+                              echo "<p class='card-text'>Origen: {$fila['origen']}</p>";
+                              echo "<p class='card-text'>Fabricante: {$fila['fabricante']}</p>";
                               echo "<p class='card-text'>stock: {$fila['stock']} unidades</p>";
 
                               echo "<form method='POST' action='Agregar_Carrito.php' class='mt-3'>";

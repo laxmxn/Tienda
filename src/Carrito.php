@@ -93,7 +93,7 @@
       }
     $id_usuario = $_SESSION['id_usuario'];
 
-    $query = "SELECT p.id_producto, p.nombre, p.descripcion, p.precio, p.foto, c.cantidad FROM Carrito c JOIN Productos p ON c.id_producto = p.id_producto WHERE c.id_usuario = $id_usuario";
+    $query = "SELECT p.id_producto, p.nombre, p.descripcion, p.precio, p.foto, p.fabricante, p.origen, c.cantidad FROM Carrito c JOIN Productos p ON c.id_producto = p.id_producto WHERE c.id_usuario = $id_usuario";
     $resultado = $conexion->query($query);
 
     if ($resultado && $resultado->num_rows > 0) {
@@ -104,6 +104,8 @@
         $precio = $fila['precio'];
         $foto = $fila['foto'];
         $cantidad = $fila['cantidad'];
+        $fabricante = $fila['fabricante'];
+        $origen = $fila['origen'];
 
       $finfo = new finfo(FILEINFO_MIME_TYPE);
       $tipoMime = $finfo->buffer($fila['foto']); 
@@ -118,6 +120,8 @@
         echo "<div class='card-body d-flex flex-column'>";
         echo "<h5 class='card-title'>$nombre</h5>";
         echo "<p class='card-text'>$descripcion</p>";
+        echo "<p class='card-text'>Fabricante: $fabricante</p>";
+        echo "<p class='card-text'>Origen: $origen</p>";
         echo "<p class='card-text'><Strong>Precio: $" . number_format($precio, 2, '.', ',') . "</Strong></p>";
         echo "<p class='card-text'>Cantidad:<Strong> $cantidad</Strong></p>";
 

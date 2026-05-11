@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 $_SESSION['mensaje'] = "Error al preparar: " . $conexion->error;
             } else {
                 $null = NULL;
-                $stmt->bind_param("ssdiisb", $nombre, $descripcion, $precio, $stock, $fabricante, $origen, $null);
+                $stmt->bind_param("ssdissb", $nombre, $descripcion, $precio, $stock, $fabricante, $origen, $null);
                 $stmt->send_long_data(6, $data);
                 
                 if ($stmt->execute()) {
@@ -83,7 +83,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET['id'])){
     exit();
 }
 
-$query = "SELECT id_producto, nombre, descripcion, precio, foto, stock FROM Productos ORDER BY id_producto DESC";
+$query = "SELECT id_producto, nombre, descripcion, precio, foto, stock, fabricante, origen FROM Productos ORDER BY id_producto DESC";
 $productos = $conexion->query($query);
 
 
@@ -102,7 +102,19 @@ $productos = $conexion->query($query);
   
     
 
-
+   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <div class="container-fluid">
+            <p class="navbar-brand mb-0">G-tec</p>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="Historial_Compras.php">Historial de Compras</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="container p-5 my-5 bg-dark text-white rounded">
         <h1>Registro de productos</h1>
         <p>¡Que bueno verte de nuevo, <?php echo $_SESSION['nombre_usuario']; ?>!</p>
@@ -172,10 +184,12 @@ $productos = $conexion->query($query);
     <div class="container p-5 my-5 bg-dark text-white rounded">
         <h1> Eliminar producto</h1>
         <p>En esta sección puedes eliminar productos de nuestra tienda.</p>
+        <p>Simplemente haz clic en el botón "Eliminar" debajo del producto que deseas eliminar y confirma tu acción. Ten en cuenta que esta acción es irreversible, así que asegúrate de querer eliminar el producto antes de confirmar.</p>
     </div>
 
     <div class="container">
         <div class="table-responsive">
+            <h3 class="text-center mb-4">Cantidad de Productos: <?php echo $productos->num_rows; ?></h2>
             <table class="table table-dark table-striped table-bordered table-hover align-middle">
                 <tbody>
                 <?php
@@ -195,6 +209,8 @@ $productos = $conexion->query($query);
                         echo "<td>
                                 <h5>{$fila['nombre']}</h5>
                                 <p>{$fila['descripcion']}</p>
+                                <p>Fabricante: {$fila['fabricante']}</p>
+                                <p>Origen: {$fila['origen']}</p>
                                 <p class='text-success fw-bold'>Precio: $" . number_format($fila['precio'], 2) . " MXN</p>
                               </td>";
                         echo "<td class='text-center'>
@@ -202,7 +218,7 @@ $productos = $conexion->query($query);
                               </td>";
                         echo "<td class='text-center'>
                                     <p class='text-info fw-bold'>Stock: {$fila['stock']} unidades</p>
-                                    <a href='Editar_stack.php?id={$fila['id_producto']}' class='btn btn-primary' onclick='return confirm(\"¿Estás seguro de que deseas editar este producto?\");'>Editar</a>
+                                    <a href='Editar_stack.php?id={$fila['id_producto']}' class='btn btn-primary' >Editar</a>
                                 </td>";
                         echo "</tr>";
                     }

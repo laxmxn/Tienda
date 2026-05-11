@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+if(!isset($_SESSION['id_usuario'])) {
+    echo "<script>alert('Acceso denegado. Debes iniciar sesión para continuar.');</script>";
+    echo "<script>window.location.href='Cuenta_Nueva.php';</script>";
+    exit();
+}
+
 if($_SESSION['id_usuario'] != 1) {
     $_SESSION['mensaje'] = "Acceso denegado. Solo el administrador puede acceder a esta sección.";
     header("Location: Inicio.php");
